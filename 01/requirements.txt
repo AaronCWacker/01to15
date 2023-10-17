@@ -1,0 +1,13 @@
+huggingface_hub
+audio-recorder-streamlit
+beautifulsoup4
+faiss-cpu
+langchain
+mistune
+openai
+PyPDF2
+python-dotenv
+pytz
+streamlit
+tiktoken
+textract
