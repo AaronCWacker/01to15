@@ -515,8 +515,7 @@ MODEL2_URL = "https://huggingface.co/openai/whisper-small.en"
 #	"Authorization": "Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 #	"Content-Type": "audio/wav"
 #}
-# HF_KEY = os.getenv('HF_KEY')
-HF_KEY = st.secrets['HF_KEY']
+HF_KEY = os.getenv('HF_KEY')
 headers = {
     "Authorization": f"Bearer {HF_KEY}",
     "Content-Type": "audio/wav"
@@ -559,17 +558,16 @@ def whisper_main():
     filename = save_and_play_audio(audio_recorder)
     if filename is not None:
         transcription = transcribe_audio(filename)
-        #try:
-        
-        transcript = transcription['text']
-        #except:
-        #st.write('Whisper model is asleep. Starting up now on T4 GPU - please give 5 minutes then retry as it scales up from zero to activate running container(s).')
+        try:
+            transcription = transcription['text']
+        except:
+            st.write('Whisper model is asleep. Starting up now on T4 GPU - please give 5 minutes then retry as it scales up from zero to activate running container(s).')
 
-        st.write(transcript)
-        response = StreamLLMChatResponse(transcript)
+        st.write(transcription)
+        response = StreamLLMChatResponse(transcription)
         # st.write(response) - redundant with streaming result?
-        filename = generate_filename(transcript, ".txt")
-        create_file(filename, transcript, response, should_save)
+        filename = generate_filename(transcription, ".txt")
+        create_file(filename, transcription, response, should_save)
         #st.sidebar.markdown(get_table_download_link(filename), unsafe_allow_html=True)
 
 
@@ -784,4 +782,4 @@ def main():
 if __name__ == "__main__":
     whisper_main()
     main()
-    #add_Med_Licensing_Exam_Dataset()
+    add_Med_Licensing_Exam_Dataset()

@@ -1,0 +1,4 @@
+nltk
+graphviz
+streamlit
+altair<5
